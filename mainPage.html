@@ -1,0 +1,594 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<style>
+		* { box-sizing: border-box; }
+		body		 { font-family: Arial, Helvetica, sans-serif; 
+					   background-color: #87cefa; 
+					   position: absolute; }
+		h1, h3, p, a { padding-left: 20px; }
+		table		 { margin: 20px; }
+			footer	 { background-color: #777; 
+					   padding: 10px; 
+					   text-align: center; 
+					   color: white; }
+
+		@media screen and (max-width: 600px) {
+			.header a, .header input[type=text] {
+				float: none;
+				display: block;
+				text-align: left;
+				width: 100%;
+				margin: 0;
+				padding: 14px;
+			}
+		}
+
+		/* Header CSS */
+		.header { overflow: hidden;
+				  background-color: #f1f1f1;
+				  padding: 20px 10px; 
+				  border-top: 2px solid #000000;
+				  border-bottom: 2px solid #000000; 
+				  border-radius: 4px; }
+
+		.header a { float: left;
+					color: black;
+					text-align: center;
+					padding: 10px;
+					text-decoration: none;
+					font-size: 18px;
+					line-height: 25px;
+					border-radius: 4px;	}
+
+		.header a:hover { background-color: #ddd;
+						  color: black; }
+
+		.header a.active { background-color: dodgerblue;
+						   color: white; }
+
+		.header-right { float: center; }
+
+		/*****************
+		** Content Page **
+		*****************/
+		.content-page     { overflow: auto; 
+							max-width: 2000px;
+							max-height: 500px; 
+							background-color: #ffffff;
+							padding: 20px; }
+
+		/* Collapsible Menu CSS */
+		.container-fluid  { height: 550px;
+							overflow: auto;	}
+
+		.menu-content	  { font-family: 'arial';
+							font-size: 1.2vw;
+							padding: 0 0 0 30px;
+							max-height: 0;
+							overflow: hidden; }
+
+		.collapsible-menu { background-color: rgb(240, 240, 240);
+							padding: 5px 10px;
+							border-bottom: 3px solid #000000;
+							border-left: 1px solid #000000;
+							border-right: 1px solid #000000;
+							border-radius: 5px; }
+
+		.collapsible-menu ul { list-style-type: none; 
+							   padding: 0;}
+
+		.collapsible-menu a { display: block;
+							  padding: 5px;
+							  text-decoration: none; }
+
+		.collapsible-menu label { font-size: 1.2vw;
+								  font-family: 'arial';
+								  display: block;
+								  cursor: pointer;
+								  padding: 10px 0 10px 10px; }
+
+		.collapsible-menu label:hover { background-color: #ddd;
+										color: black; }
+
+		input#license, #uaLicense, #registration, #other, #main-submenu { display: none; }
+		input:checked ~ .menu-content { max-height: 100%; 
+										background-color: #ffffff}
+
+		/* Search Bar */
+		.header input[type=text] { float: right;
+								   padding: 6px;
+								   border: none;
+								   margin-top: 8px;
+								   margin-right: 16px;
+								   font-size: 17px; }
+
+		/* Table CSS */
+		table, th, td { border: 1px solid black;
+						border-collapse: collapse; 
+						padding: 5px; 
+						text-align: left; }
+
+		th { background-color: rgb(200, 240, 200); }
+
+		/* Image CSS */
+		#logo { width: 150px;
+				max-width: 100%;
+				height: auto; }
+
+	</style>
+    <title>Idaho DMV</title>
+
+	<script>
+		$(document).ready(function(){
+			$("#main-submenu").click(function(){
+				$(".content").hide();
+				$("#main-content").show();
+			});
+		});		
+		$(document).ready(function(){
+			$("#registration").click(function(){
+				$(".content").hide();
+				$("#registration-content").show();
+				$(".checkboxes").prop('checked', false);
+				$("#registration").prop('checked', true);
+			});
+		});
+		$(document).ready(function(){
+			$("#license").click(function(){
+				$(".content").hide();
+				$("#license-content").show();
+				$(".checkboxes").prop('checked', false);
+				$("#license").prop('checked', true);
+			});
+		});
+		$(document).ready(function(){
+			$("#uaLicense").click(function(){
+				$(".content").hide();
+				$("#under-age-license-content").show();
+				$(".checkboxes").prop('checked', false);
+				$("#uaLicense").prop('checked', true);
+			});
+		});
+		$(document).ready(function(){
+			$("#other").click(function(){
+				$(".content").hide();
+				$("#other-content").show();
+				$(".checkboxes").prop('checked', false);
+				$("#other").prop('checked', true);
+			});
+		});
+	</script>
+</head>
+<body>
+<h1><img id="logo" src="idahoLogo.png" alt="Idaho Logo"> Transportation Department</h1><br>
+<div class="header">
+	<div class="header-right">
+		<a href="#home">Home</a>
+		<a class="active" href="#dmv">DMV</a>
+		<a href="#road-report">Road Report</a>
+		<a href="#business">Business</a>
+		<a href="#projects">Projects</a>
+		<a href="#contact-us">Contact Us</a>
+		<input type="text" placeholder="Search...">
+	</div>
+</div>
+
+<!-- Side bar menu -->
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-2" style="background-color:lavendar;">
+
+			<!-- Side menu for "Main" -->
+			<div class="collapsible-menu">
+				 <input type="checkbox" id="main-submenu">
+				 <label for="main-submenu">Main</label>
+			</div>
+
+			<!-- Side menu for "Registration" -->
+			<div class="collapsible-menu">
+				 <input type="checkbox" id="registration" class="checkboxes">
+				 <label for="registration">Registration</label>
+				 <div class="menu-content">
+					<ul>
+						<li><a href="#r1">Requirements</a></li>
+						<li><a href="#r2">Titling</a></li>
+						<li><a href="#r3">Registration Fees</a></li>
+						<li><a href="#r4">New Residents</a></li>
+						<li><a href="#r5">Forms and Publications</a></li>
+					</ul>
+				 </div>
+			</div>
+
+			<!-- Side menu for "License" -->
+			<div class="collapsible-menu">
+				<input type="checkbox" id="license" class="checkboxes">
+				<label for="license">License</label>
+				<div class="menu-content">
+					<ul>
+						<li><a href="#l1">Who Needs a License</a></li>
+						<li><a href="#l2">How Do I Get a License</a></li>
+						<li><a href="#l3">Renew Your License</a></li>
+						<li><a href="#l4">Tests</a></li>
+						<li><a href="#l5">Restrictions</a></li>
+						<li><a href="#l6">Other Information</a></li>
+					 </ul>
+				 </div>
+			</div>
+
+			<!-- Side menu for "Under-Age License" -->
+			<div class="collapsible-menu">
+				 <input type="checkbox" id="uaLicense" class="checkboxes">
+				 <label for="uaLicense">Under-Age License</label>
+				 <div class="menu-content">
+					<ul>
+						<li><a href="#p1">How To Get a Permit</a></li>
+						<li><a href="#p2">Under-Age Driver's License</a></li>
+					</ul>
+				 </div>
+			</div>
+
+			<!-- Side menu for "Other" -->
+			<div class="collapsible-menu">
+				 <input type="checkbox" id="other" class="checkboxes">
+				 <label for="other">Other</label>
+				 <div class="menu-content">
+					<ul>
+						<li><a href="#o1">Manuals</a></li>
+						<li><a href="#o2">Military</a></li>
+						<li><a href="#o3">CDL</a></li>
+					</ul>
+				 </div>
+			</div>
+		</div>
+		<div class="col-sm-10" style="background-color:lavendarblush;">
+			<div class="content-page">
+
+				<!-- Main content -->
+				<div id="main-content" class="content">
+					<p id="m1">The Division of Motor Vehicles in Idaho is committed to helping keep our roads safe. Browse the side bar menu to access more information.</p>
+				</div>
+
+				<!-- Registration content -->
+				<div id="registration-content" class="content">
+					<h1>Registration</h1>
+					<h3 id="r1">Registration Requirements</h3>
+					<p><b>To register a vehicle in Idaho:</b></p>
+					<ul>
+						<li>The vehicle must belong to an Idaho resident or business.</li>
+						<li>The vehicle must be titled in Idaho before it can be registered. (You can apply for vehicle registration immediately after submitting the required documents to a county assessor’s motor vehicle office.)</li>
+						<li>If you are a new resident, you must register and title your vehicle(s) within 90 days.</li>
+					</ul>
+					<p>An Idaho resident is anyone whose principal home has been in Idaho for 90 continuous days, although residency may be declared at any time earlier, and vehicles may be titled and registered at that time. Idaho residents who are temporarily in another state (i.e., students or military personnel) may request titles and registrations for their vehicle(s) through the mail.</p>
+					<p><b>What should I bring when applying for my vehicle registration and title?</b></p>
+					<ul>
+						<li>The vehicle being titled and registered. You will need to have the vehicle identification number (VIN) inspected. This inspection can generally be performed by a deputy of either the county assessor motor vehicle office or the county sheriff’s office.</li>
+						<li>Current title and registration. If the vehicle has not been titled in your name, be sure the title has been signed over to you by the seller, and that you have a bill of sale from the seller. If the title is being held by a lienholder, bring the lienholder’s name and address. If your title has been lost, you will need to apply for a duplicate title from the state of issuance.</li>
+						<li>Your personal identification.</li>
+						<li>Cash or a check for payment of any applicable taxes and fees.</li>
+					</ul>
+					<h3 id="r2">Titling</h3>
+					<p><b>Titling procedure</b></p>
+					<p>If an Idaho resident purchases a vehicle from an Idaho dealer, that dealer will prepare an application for title for the owner and file it with the Idaho Transportation Department (ITD) or a county assessor motor vehicle office within 30 days of delivery. If the vehicle was purchased from an out-of-state dealer or from a private party, and a financial institution is recording a lien, they may file the application for title. Otherwise the buyer must file the following documents with a county assessor’s motor vehicle office within 30 days of transfer to avoid a $20.00 late-filing penalty:</p>
+					<ul>
+						<li>Title (for used vehicles) – must be properly released by the previous owner and lienholder (if any), or Manufacturer’s Certificate of Origin (for new vehicles) – must be properly released by the dealer and assigned to the owner.</li>
+						<li>Bill of Sale – must include vehicle description, sales price, buyer’s full legal name, original signature of seller, and date. A bill of sale is not required if the seller has entered the sales price on the title in a space dedicated for this information.</li>
+						<li>Odometer Disclosure – required for any transfer of a motor vehicle less than 10 years old and under 16,000 lbs. G.V.W. Disclosure must be entered on the title.</li>
+						<li>Vehicle Identification Number Inspection – completed by an officer of the law, DMV employee, military police officer, or Idaho licensed vehicle dealer. (Out-of-state lienholders: If the vehicle and owner are in Idaho, the Vehicle Identification Number inspection can often be performed by the County Assessor’s office, Sheriff’s office, or City Police Department where the owner resides).</li>
+						<li>Power of Attorney – include if applying for a title with a county assessor’s motor vehicle office through the mail. This authorizes the County Assessor to sign the application for the owner. The Power of Attorney must fully describe the vehicle and be signed by the owner/applicant.</li>
+						<li>Title application (optional).</li>
+						<li>Title fee - $14.00</li>
+					</ul>
+
+					<h3 id="r3">Registration Fees</h3>
+					<p>The total cost to register a vehicle varies depending on:</p>
+					<ul>
+						<li>Vehicle age</li>
+						<li>Type or weight of the vehicle</li>
+						<li>Inspection requirements</li>
+						<li>Your county of residence, etc</li>
+					</ul>
+					<p>Additional processing and administration fees may apply.</p>
+					<p><b>Passenger Vehicles</b></p>
+					<p>Idaho code sets the BASIC annual registration fee for passenger vehicles (pickup trucks, neighborhood electric vehicles, or other motor vehicles having a maximum gross weight 8,000 pounds or less) as follows:</p>
+					<ul>
+						<li>$69 for vehicles one or two years old</li>
+						<li>$57 for vehicles three to six years old</li>
+						<li>$45 for vehicles seven or more years old</li>
+					</ul>
+					<p><b>Motorcycles</b></p>
+					<ul>
+						<li>$25.00 = $19.00 Registration Fee + $6.00 Motorcycle Safety Program Fee</li>
+						<li>(The fee for Ada County residents includes an additional $8.00 Ada County Highway District fee)</li>
+					</ul>
+					<p><b>Trucks</b></p>
+					<table>
+						<tr>
+							<th><b>Gross Weight (vehicle weight and load weight combined)</b></th>
+							<th>Fee for 12 months</th>
+						</tr>
+						<tr>
+							<td>8,001 - 16,000 lbs</td>
+							<td>$73.00</td>
+						</tr>
+						<tr>
+							<td>16,001 - 26,000 lbs</td>
+							<td>$86.08</td>
+						</tr>
+						<tr>
+							<td>26,001 - 30,000 lbs</td>
+							<td>$116.68</td>
+						</tr>
+						<tr>
+							<td>30,001 - 40,000 lbs</td>
+							<td>$155.08</td>
+						</tr>
+						<tr>
+							<td>40,001 - 50,000 lbs</td>
+							<td>$213.28</td>
+						</tr>
+						<tr>
+							<td>50,001 – 60,000 lbs</td>
+							<td>$336.88</td>
+						</tr>
+					</table>
+					<p>For heavier weights- contact Motor Carrier Services at: cvs@itd.idaho.gov</p>
+
+					<h3 id="r4">New Residents</h3>
+					<p><b>What vehicles must be registered and titled in Idaho?</b></p>
+					<p>Generally, any vehicle operated on public highways must be registered and titled. Also, boats with a permanently attached mode of propulsion (e.g., inboards, inboard/outboards, sailboats, personal watercraft) of 2000 model year or newer that were purchased since January 1, 2000, must be titled. Model year 1999 and older boats with a permanently attached mode of propulsion may be optionally titled, provided they are not exempt from titling. Any motorized boat used on Idaho’s waterways must be registered.</p>
+					<p><b>When must I register and title my vehicle?</b></p>
+					<p>You must register and title your vehicle when you become a resident of Idaho. You become a resident of Idaho when your domicile (principle home) has been in Idaho for 90 continuous days. However, you may declare residency at any time earlier than that, and register and title your vehicles at that time.</p>
+					<p><b>Where do I go to register and title my vehicle?</b></p>
+					<p>You may go to any county assessor motor vehicle office. Check the county office listings in your local telephone directory for the Motor Vehicle or Auto Licensing office nearest to you, or find a convenient office location by using the search box above.</p>
+					<p><b>What should I do before going to the motor vehicle office to title and register my vehicle?</b></p>
+					<p>You must have your vehicle insured with an insurance company licensed to do business in Idaho, and have the following minimum coverage:</p>
+					<ul>
+						<li>$25,000 for injury or death of one person in any one accident.</li>
+						<li>$50,000 for injury or death of two or more persons in any one accident.</li>
+						<li>$15,000 for damage or destruction of property of others in any one accident</li>
+					</ul>
+					<p><b>What should I bring when applying for my vehicle registration and title?</b></p>
+					<p>You should bring the following:</p>
+					<ul>
+						<li>The vehicle being titled and registered. You will need to have the vehicle identification number (VIN) inspected. This inspection can generally be performed by a deputy of either the county assessor motor vehicle office or the county sheriff’s office.</li>
+						<li>Current title and registration. If the vehicle has not been titled in your name, be sure the title has been signed over to you by the seller, and that you have a bill of sale from the seller. If the title is being held by a lienholder, bring the lienholder’s name and address. If your title has been lost, you will need to apply for a duplicate title from the state of issuance.</li>
+						<li>Your personal Identification.</li>
+						<li>Cash or a check for payment of any applicable taxes and fees.</li>
+					</ul>
+					<p><b>What do I need to do to get an Idaho driver’s license?</b></p>
+					<p>For information regarding Idaho driver licenses, obtain a copy of the Idaho Driver’s Handbook, from your county sheriff’s driver license office. To find the driver’s license office in your county, check under the county sheriff listings in your local telephone directory, or check the Sheriff’s Office list at the Driver’s License and ID Cards tab.</p>
+
+					<h3 id="r5">Forms and Publications</h3>
+					<p><b>Vehicle Titling Forms</b></p>
+					<ul>
+						<li>Affidavit of Inheritance (ITD 3414)</li>
+						<li>Affidavit of Repossession (ITD 3366)</li>
+						<li>Application for Certificate of Idaho Title (ITD 3337)</li>
+						<li>Bill of Sale (ITD 3738)</li>
+						<li>Certification Of No EIN/SSN (ITD 3823)</li>
+						<li>Conditional Title Statement of Facts (ITD 3405)</li>
+						<li>Dealer/Financial Transmittal (ITD 3204)</li>
+						<li>Dealer/Financial Transmittal, RUSHES ONLY (ITD 3203)</li>
+						<li>Duplicate Idaho Title Application (ITD 3367)</li>
+						<li>Duplicate Idaho Title Application with Transfer of Ownership (ITD 3369)</li>
+						<li>Hull Identification Number (HIN) Inspection (ITD 3402)</li>
+						<li>Indemnifying Affidavit (ITD 3410)</li>
+						<li>Motorbike to Motorcycle Conversion Self Certification Affidavit</li>
+						<li>One And The Same Statement (ITD 3125)</li>
+						<li>Power of Attorney (ITD 3368)</li>
+						<li>Release of Interest (ITD 3777)</li>
+						<li>Release of Liability (ITD 3858)</li>
+						<li>Salvage Vehicle Statement (ITD 3311)</li>
+						<li>Salvage Certificate Application (ITD 3312)</li>
+						<li>Salvage Transmittal For Insurance Company/Salvage Pool (ITD 3206)</li>
+						<li>Satisfaction of Lien (ITD 3726)</li>
+						<li>Small Estate Affidavit (ITD 3413)</li>
+						<li>Statement of Correction or Erasure (ITD 3395)</li>
+						<li>Title Stop Request (ITD 3702)</li>
+						<li>Transitional Ownership Document (ITD 3901)</li>
+						<li>Vehicle Appraisal and Vehicle Identification Number (VIN) Inspection (ITD 3404)</li>
+						<li>Vehicle Identification Number Inspection Certification (ITD 3403)</li>
+					</ul>
+					<p><b>Tax Exemption Forms</b></p>
+					<ul>
+						<li>(ST-101) Sales Tax Resale or Exemption Certificate</li>
+						<li>(ST-102) Use Tax Exemption Certificate New Resident or Military</li>
+						<li>(ST-104IC) Sales Tax Exemption Certificate -Interstate Commerce Vehicles</li>
+						<li>(ST-104NR) – Sales Tax Exemption Certificate – Nonresident Vehicle/Vessel”</li>
+						<li>(ST-108) Transport Trailer, Office Trailer, Untitled Boat Certificate</li>
+						<li>(ST-108PM) Park Model Recreational Vehicle Modification Affidavit</li>
+						<li>(ST-108TR) Occasional Sale Exemption Claim – Office Trailer, Transport Trailer</li>
+						<li>(ST-109) Boat Registration Sales Tax Affidavit</li>
+						<li>(ST-133) Sales Tax Exemption Certificate – Family or American Indian Sales</li>
+						<li>(ST-133CATS) Sales Tax Exemption Certificate – Capital Asset Transfer Affidavit</li>
+						<li>(ST-133GT) Use Tax Exemption Certificate Gift Transfer</li>
+					</ul>
+					<hr>
+				</div>
+
+				<!-- License Content section -->
+				<div id="license-content" class="content">
+					<h1>License</h1>
+					<h3 id="l1">Who Needs a Driver's License?</h3>
+					<ul>
+						<li>Anyone who operates a motor vehicle on the public roads in Idaho is required to have a valid driver’s license.</li>
+						<li>When moving to Idaho you will need to apply for an Idaho driver’s license within 90 days of residing in Idaho, whether your out-of-state license has expired or not. If you have a Commercial Driver’s License (CDL), you are required to be licensed in Idaho within 30 days of residing in Idaho.</li>
+						<li>Students attending a college or university in Idaho and members of the U.S. Military on active duty and their dependents who hold a valid driver’s license from another state and who claim residency in that state, are not required to obtain an Idaho driver’s license.</li>
+					</ul>
+					<h3 id="l2">How Do I Get a Driver's License?</h3>
+					<p>Idaho driver’s licenses, instruction permits, or identification (ID) cards are issued through the county sheriff’s offices. You may apply at a sheriff’s office that provides driver licensing services. Not all county DMV locations offer Driver License/ID Card services. Use the searchable table above to identify locations with Driver License/ID Card services and their specific hours for testing.</p>
+					<p><b>What do I need to bring with me?</b></p>
+					<p>Proof of Idaho Residency — You must reside inside Idaho’s borders to be issued an Idaho driver’s license or ID card. Proof of residency can be shown with documents such as lease or rental agreements, utility bills, school enrollment records, etc. Your home address (where you live) cannot be your workplace, vacation residence, a part-time residence, P.O. Box, mail drop, or general delivery (that have been mailed to the applicant.) Please check with your local office to determine the acceptability of your documents.</p>
+					<p>Proof of Age and Identity – Driver’s license examiners are required by law to verify your identity and age before issuing you a driver’s license or ID card. If you have a valid, state-issued driver’s license or a state-issued ID card to surrender that meets the conditions of a primary document stated below, you do not need to provide any additional identity documents.</p>
+					<p><b>Note:</b> If you do not have an acceptable driver’s license or ID card to surrender, you will be required to present a certified original birth certificate and an acceptable photo identity document (see primary and secondary document lists below).</p>
+					<p>If the documents described above cannot be obtained, the examiner will require a combination of documents from the primary and secondary document lists that provide proof of your legal name, date of birth, and identity (including a picture.)</p>
+					<p><b>Primary documents</b> verify your age and identity, and must contain your full legal name and date of birth. These documents must be verifiable as authentic (the examiner must be able to contact the issuing agency to determine authenticity). The following are examples of primary documents:</p>
+					<ol>
+						<li>Out of state driver’s license or ID card (with a photo) not expired for five years or more.</li>
+						<li>Idaho driver’s license or ID card not expired for five years or more.</li>
+						<li>Original naturalization/citizenship document.</li>
+						<li>Certified original birth certificate or certified abstract.</li>
+						<li>Valid Immigration and Naturalization card from the Department of Homeland Security (DHS).</li>
+						<li>U.S. military photo identification card.</li>
+						<li>U.S. passport or passport card</li>
+						<li>Valid Foreign passport with a valid U.S. VISA.</li>
+						<li>Idaho concealed weapons permit not expired for one year or more.</li>
+						<li>Veteran’s Universal Access Card with photo.</li>
+						<li>Native American ID card with photo.</li>
+					</ol>
+					<p><b>Secondary documents</b> will assist in confirming your identity, and must contain your name and enough information to establish proof of all or part of what is contained on the primary document. The following are examples of secondary documents:</p>
+					<ol>
+						<li>Out-of-state issued driver’s license or ID card (with photo) expired for five years or more.</li>
+						<li>U.S. military discharge paper (form # DD214).</li>
+						<li>Certified marriage certificate (meeting Idaho standards) with seal and document number showing that it was recorded.</li>
+						<li>Certified divorce document from a court or state vital statistics office.</li>
+						<li>Guardianship or custody documents, notarized or court certified.</li>
+						<li>Certified court name-change document.</li>
+						<li>Junior or senior high school (not college or university) photo activity card.</li>
+						<li>Junior or senior high school, college, or military yearbook/annual.</li>
+						<li>Idaho Automobile dealer/salesman photo ID card.</li>
+						<li>Idaho Department of Corrections photo ID card.</li>
+						<li>Idaho Department of Juvenile Corrections photo ID card.</li>
+					</ol>
+					<p>Either the primary or secondary document must contain a photo of you.</p>
+					<p><b>NOTE:</b> ALL DOCUMENTS SUBMITTED MUST BE ACCEPTABLE TO THE EXAMINER OR THE IDAHO TRANSPORTATION DEPARTMENT.</p>
+
+					<h3 id="l3">Renew Your License</h3>
+					<p><b>When can I renew my license?</b></p>
+					<p>You may renew your Idaho driver’s license in person up to 25 months before the expiration date. A Class D license renewal is valid for either four years or eight years. If you are between the ages of 21 and 62, you may choose the eight-year renewal. Your vision will be checked, and if the examiner thinks it is necessary, a skills test, visual examination, and/or medical examination may be requested. If your driver’s license has been expired for 25 months or more, you will be required to take the written knowledge test and the skills test. If your CDL is expired for 25 months or more and you wish to retain CDL privileges, you will need to take the written knowledge test for class D, all written tests pertinent to the CDL, and a skills test in the class of vehicle that matches the class of CDL you are applying for.</p>
+				
+					<h3 id="l4">Tests</h3>
+					<p><b>What test will I need to take?</b></p>
+					<p>Vision Screening – Your vision will be tested and you must meet a minimum standard of 20/40 vision in at least one eye, with or without corrective lenses. If you wear glasses or contacts during the screening, a lens restriction will be placed on your driver’s license. If the lens restriction is placed on your driver’s license, you must always wear your glasses or contacts when operating a vehicle or you could be cited and lose your driving privileges for a period of time.</p>
+					<p><b>Written knowledge test </b>- If you are a new applicant for an Idaho driver’s license or your Idaho driver’s license has been expired for more than 25 months, you will be tested on your knowledge of Idaho traffic laws, highway signs by shape and symbol, traffic signals, pavement marking, and equipment required on motor vehicles.</p>
+					<p><b>Skills test </b>- A skills test is required for any applicant:</p>
+					<ul>
+						<li>who has never been licensed before,</li>
+						<li>who has completed driver’s training and the supervised instruction period,</li>
+						<li>whose license has been expired for 25 months or more,</li>
+						<li>who presents or surrenders a driver’s license issued by a foreign country (except Germany and Korea), or</li>
+						<li>whose vision does not meet minimum standards.</li>
+					</ul>
+					<p>A skills test may also be required for any applicant:</p>
+					<ul>
+						<li>having any mental or physical impairment that might affect the safe operation of a motor vehicle,</li>
+						<li>when an examiner has concerns about the applicant’s ability to safely operate a motor vehicle, regardless of prior license, experience, or age.</li>
+					</ul>
+
+					<h3 id="l5">Restrictions</h3>
+					<p><b>Who cannot be issued an Idaho driver's license?</b></p>
+					<p>An Idaho driver's license cannot be issued to anyone who:</p>
+					<ul>
+						<li>Is not a resident of the state of Idaho</li>
+						<li>Is not lawfully present in the United States</li>
+						<li>Is under the age of 15</li>
+						<li>Is under the age of 17 and has not completed the requirements of Idaho’s graduated driver’s license program</li>
+						<li>Is under the age of 18 and is not enrolled in school or has not completed school as required in Section 49-303A, Idaho Code</li>
+						<li>Has a suspended, revoked, or canceled status in Idaho or any other jurisdiction</li>
+						<li>Has been adjudged as an habitual drunkard or addicted to the use of narcotics</li>
+						<li>Has been adjudged as suffering from mental incompetence that would affect a person’s ability to safely operate a motor vehicle and who at the time of application has not been restored to competency</li>
+						<li>May be afflicted with any physical or mental condition which brings about momentary or prolonged lapses of consciousness or control</li>
+						<li>Is required to take an examination and has not passed the examination</li>
+					</ul>
+
+					<h3 id="l6">Other Information</h3>
+					<p><b>Donor designation </b>—If you are 18 years of age or older, you may request to have the “DONOR” designation appear on your license or ID card. If you are 16 or 17 years old, you may be a donor but must have parental permission to be on the donor registry. The designation identifies your wish to donate your organs and/or tissues upon your death to those waiting for transplants. If you want to make limitations, change, or update your donor status, you may do so at www.yesidaho.org or call 1-866-YES-IDAHO.</p>
+					<p><b>Selective service registration </b>—Federal law requires all males who are 18 to 25 years of age to register with the Selective Services System. Eligible males will have the opportunity to register when they apply for a driver’s license or ID card.</p>
+					<p>Additionally, the Selective Service System receives notification of all applicants who decline the opportunity to register.</p>
+					<p><b>Address change:</b></p>
+					<p>Idaho law requires you to notify the DMV of any address change no more than 30 days after the move. Keeping your address current with the department helps assure that you will receive notifications to renew your driver’s license by mail (if you qualify) and also receive any other important correspondence, such as notices of suspension. It also allows law enforcement personnel to notify you or your family if there is an emergency.</p>
+					<hr>
+				</div>
+
+				<!-- Under-Age License section -->
+				<div id="under-age-license-content" class="content">
+					<h1>Under-Age License</h1>
+					<h3 id="p1">How To Get an Under-Age Driver's License</h3>
+					<p><b>Graduated Driver's License Program</b></p>
+					<p>Effective January 1, 2001, anyone under 17 years of age who has not been issued a driver’s license in Idaho must successfully complete an approved driver training program and comply with the requirements of the Graduated Driver Licensing (GDL) Program. Under the GDL Program, you will be required to complete a minimum six-month violation-free supervised instruction period, during which you must:</p>
+					<ul>
+						<li>be accompanied by a supervising person at least 21 years old with a valid driver’s license who is occupying the seat beside you (no other passengers are allowed in the front seat),</li>
+						<li>assure that all occupants are wearing seat belts or child restraints if required,</li>
+						<li>have the Supervised Instruction Permit (SIP) in your immediate possession while driving,</li>
+						<li>observe all laws regarding alcohol and other intoxicating substances, and</li>
+						<li>accumulate at least 50 hours of supervised driving time, ten hours of which must be at night</li>
+					</ul>
+					<p>If you are convicted of violating any traffic laws (moving or non-moving), violate any restrictions, or have your driving privileges suspended by the department or the courts while you are operating under the Supervised Instruction Permit (SIP), the permit will be canceled and you must apply for a new SIP. Your minimum six months of supervised driving begins all over again with the issuance of a new permit. You may drive on your SIP for longer than six months if it has not expired.</p>
+					<p>Once you have successfully met the requirements of the GDL, and are at least 15 years of age, you will be required to take and pass the skills test and the knowledge test before receiving a driver’s license. The skills test and the knowledge test may NOT be taken sooner than six (6) months from the date you complete the driver’s training course or age 17, whichever comes first. If you fail the written and/or the skills test, you must wait three days before retesting for each failure.</p>
+					<p><b>Driver Training</b></p>
+					<p>Completing and passing a driver-training program is required for anyone under 17 years old who is applying for an Idaho driver’s license. An approved Idaho driver training program consists of a required 30 hours (1,800 minutes) of classroom instruction, six hours (360 minutes) of in-car observation in a driver-training car, and six hours (360 minutes) of behind-the-wheel driving with a driver training instructor. The minimum training period for students attending driver education classes through a public school is 30 days. Commercial (private) schools are not restricted to a minimum training period.</p>
+					<p>Most Idaho school districts offer driver training programs in cooperation with the Department of Education. The public school courses are open to all Idaho residents between the ages of 14 1/2 and 21, even if they are not public school students. Commercial (private) driver training courses are available to anyone 14 1/2 years of age or older.</p>
+					<p>If you are under 17 years old you must have a driver training instruction permit to attend any commercial or public school driver-training program. The permits expire at age 18 for people 14 1/2 to 17 1/2 years of age; permits expire 180 days from issuance for people 17 1/2 years of age or older. The fee is not refundable. The documents required to get a driver-training permit are the same as those required for a driver’s license and are listed in Chapter One of the Idaho Driver’s Manual. The certified original copy of the birth certificate you provide must show mother/father for liability signer purposes.</p>
+					<p>When you have successfully completed a driver-training program, you will be eligible to begin the supervised instruction period for drivers under the age of 17 as required by Idaho’s Graduated Driver’s License (GDL) program.</p>
+
+					<h3 id="p2">Under-Age Driver's License</h3>
+					<p>Drivers under the age of 16 who have a valid driver’s license or regular instruction permit may drive only during daylight hours unless they are accompanied by a person 21 years of age or older who has a valid driver’s license and is sitting in the front seat. No other passengers are allowed in the front section of the vehicle.</p>
+					<p>Licensees under the age of 17 are required – during the first six (6) months from the date the license was issued – to limit the number of passengers in the vehicle who are under the age of 17 to not more than one passenger, unless the passengers are related to the driver by blood, adoption, or marriage.</p>
+					<p>If you are:</p>
+					<ul>
+						<li>15 to 17 years of age, your driver’s license will have a vertical format with a green border around the picture and show “Under 18 until month/day/year.” It will expire five days after your 18th birthday. You should not renew your driver’s license before your 18th birthday unless you will be temporarily living out of state at the time of your 18th birthday.</li>
+						<li>18 to 20 years of age, your driver’s license will have a vertical format with a red border around the picture and show “Under 21 until month/day/year.” It will expire five days after your 21st birthday. You should not renew your driver’s license before your 21st birthday unless you will be temporarily living out of state at the time of your 21st birthday.</li>
+					</ul>
+					<hr>
+				</div>
+
+				<!-- Other content -->
+				<div id="other-content" class="content">
+					<h1>Other</h1>
+					<h3 id="o1">Manuals</h3>
+					<p><b>Driver's Manuals</b></p>
+					<ul>
+						<li><a href="https://itd.idaho.gov/wp-content/uploads/2016/06/driver_manual.pdf" target="_blank">English</a></li>
+						<li><a href="https://itd.idaho.gov/wp-content/uploads/2016/10/Spanish_manual.pdf" target="_blank">Spanish</a></li>
+						<li><a href="https://apps.itd.idaho.gov/Apps/dmv-audio/audiodlmanual.html" target="_blank">Audio-version of the Driver's Manual (2004 edition)</a></li>
+						<li><a href="https://itd.idaho.gov/wp-content/uploads/2016/06/motorcycle_manual.pdf" target="_blank">Motorcycle</a></li>
+						<li><a href="https://itd.idaho.gov/wp-content/uploads/2016/06/cdl_manual.pdf" target="_blank">Commercial</a></li>
+						<li><a href="https://itd.idaho.gov/wp-content/uploads/2016/06/spanish_cdl_manual.pdf" target="_blank">Commercial (Spanish)</a></li>
+						<li><a href="https://itd.idaho.gov/wp-content/uploads/2016/12/Guide-to-Understanding-Driving-Records-7-2016.pdf" target="_blank">Guide to Understanding Driver Records</a></li>
+					</ul>
+					<p><b>Motor Carrier Manuals</b></p>
+					<ul>
+						<li><a href="https://itd.idaho.gov/wp-content/uploads/2016/06/MotorCarrierServicesManual.pdf" target="_blank">Motor Carrier Services Manual</a></li>
+						<li><a href="https://itd.idaho.gov/wp-content/uploads/2016/06/TruckersHandbook.pdf" target="_blank">Truckers Handbook</a></li>
+						<li><a href="https://itd.idaho.gov/wp-content/uploads/2016/06/permits.pdf" target="_blank">Overlegal Permit Conditions Manual</a></li>
+					</ul>
+
+					<h3 id="o2">Military</h3>
+					<p><b>Driver's Licenses</b></p>
+					<p>If you are a member of the U.S. Military preparing for deployment overseas or out of state, check the expiration date printed on your Idaho Driver’s License (see example in red circle below) to make sure it will not expire while you are deployed.</p>
+					<p>If your license will expire in less than 25 months and you are nearing a deployment date, we encourage you to visit your local county sheriff’s office and renew your driver’s license. You can renew your license up to 25 months in advance of its expiration date.</p>
+					<p>If the expiration date printed on your license is more than 25 months away, and you anticipate being on active duty or out of state when your license expires, you can download an extension of Idaho drivers license application form and submit the extension form to the Idaho DMV within six months—preferably no later than two months—prior to your license’s expiration date. As an active member of the military, you can extend your Idaho driver’s license for four years.</p>
+					<p>If at any point you apply for an Idaho CDL, you will be required to take all applicable CDL knowledge and skills tests. You will also be required to surrender any out of state driver’s license and/or ID card, provide proof of Idaho residency, and pass the vision screening. Your driving record must be clear in all states.</p>
+					<p>The Idaho Transportation Department provides an exemption from the requirement to take a skills test with a CDL Examiner for persons with experience operating heavy duty trucks while in military service. This exemption is for the skills test portion of CDL licensure only; the Military member must still take and pass written (knowledge) tests before the CDL will be issued. The applicant must possess a valid Idaho Driver’s License at the time of application, and heavy vehicle driving experience must be current (within two years of date of application). Application for this waiver must be made to ITD within one year of separation from Military Service. Interested persons should contact the CDL Specialist at (208) 334-8294 for application instructions.</p>
+					<p><b>Vehicle Registration</b></p>
+					<p>You should also check the expiration date(s) of your motor vehicle(s) and/or motorcycle(s) to make sure they do not expire while you are deployed. Passenger car and motorcycle registrations can typically be renewed up to 12 months early. Expiring registrations for passenger cars or motorcycles can be renewed for a one- or two-year period. There are no provisions in Idaho statute allowing the extension of vehicle registrations for military personnel.</p>
+					<p>You can renew Idaho vehicle registrations from overseas or out of state by submitting the appropriate registration fee to your home county assessor’s office. Please use the search box or the Google map above to find an office near you.</p>
+					<p>You can also renew vehicle registrations on-line if your home county participates in the internet registration renewal process and the owners listed for the vehicle have Idaho issued driver licenses or Idaho issued identification cards. <a href="https://www.accessidaho.org/secure/itd/vehicle/renewal.html" target="_blank">Click here for more information on renewing your vehicle registrations on-line.</a></p>
+					<p>If you have any vehicle-related questions, please contact Vehicle Services, Registration Section at 208-334-8649 or via e-mail at: dmv-registrations@itd.idaho.gov.</p>
+
+					<h3 id="o3">CDL</h3>
+					<p><b>CDL License Classes</b></p>
+					<p>There are three classes of commercial driver’s licenses: Class A, B and C. Drivers of vehicles that do not fall in Classes A, B, or C will be issued Class D (non-commercial) licenses.</p>
+					<p><b>Class A </b>– Combination vehicles with a gross combination weight rating (GCWR) of 26,001 or more pounds, provided the GVWR of the vehicle(s) being towed is greater than 10,000 pounds. Drivers with a Class A license may, with the proper endorsements, operate vehicles requiring a Class B, C or D license.</p>
+					<p><b>Class B </b>– Single vehicles with a GVWR of 26,001 or more pounds, or any such vehicle towing a vehicle 10,000 pounds GVWR or less. A driver with a Class B license may, with the proper endorsements, operate vehicles requiring a Class C or D license.</p>
+					<p><b>Class C </b>– Vehicles with a GVWR or GCWR less than 26,001 pounds. Class C is strictly for vehicles designed to carry 16 or more people (including the driver), or carrying hazardous materials requiring the vehicle to display placards. A driver with a Class C license may also operate vehicles requiring a Class D license.</p>
+				</div>
+			</div> 
+		</div>
+	</div>
+</div>
+<footer>
+	<p>© 2019 Idaho Transportation Department </p>
+	<p>Privacy Policy | Cybersecurity | Accessibility</p>
+	<p>Contact Us: 3311 W. State Street - P.O. Box 7129 Boise, ID 83707-1129 - (208) 334-8000</p> <img id="dmv-logo" src="idahoDMVLogo.png" alt="Idaho DMV Logo">
+</footer>
+</body>
+</html>
